@@ -1,11 +1,9 @@
 image: maven:3.6.3-jdk-11
-
 clone:
   depth: full              # SonarCloud scanner needs the full history to assign issues properly
-
 definitions:
   caches:
-    sonar: ~/.sonar/cache  # Caching SonarCloud artifacts will speed up your build
+    sonar: ~/.sonar/cache  # Caching SonarCloud artifacts will speed up your builds
   steps:
     - step: &build-test-sonarcloud
         name: Build, test and analyze on SonarCloud
@@ -13,14 +11,22 @@ definitions:
           - maven
           - sonar
         script:
+          - mvn clean install
           - mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
         artifacts:
           - target/**
-
 pipelines:                 # More info here: https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html
   branches:
     master:
       - step: *build-test-sonarcloud
   pull-requests:
-    '**':
+    ‘**’:
       - step: *build-test-sonarcloud
+
+
+
+
+
+
+
+
