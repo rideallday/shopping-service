@@ -1,0 +1,8 @@
+Build a docker image with packer:
+
+`docker build -t shopping .`
+
+Then run:
+
+`docker run -p 8082:8082 shopping`
+
